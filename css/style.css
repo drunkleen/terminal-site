@@ -1,0 +1,212 @@
+:root {
+  --bg-color: #181926;
+  --text-color: #94e2d5;
+  --accent-color: #74c7ec;
+  --highlight-color: #a6e3a1;
+  --selection-bg: var(--highlight-color);
+  --selection-text: #74c7ec;
+  --error-color: #ce2b2b;
+  --link-color: #f38ba8;
+  --prefix-color: #a6e3a1;
+  --index-color: #DCDCCC;
+  --index-color2: #f9e2af;
+}
+
+[data-theme="light"] {
+  --bg-color: #cbc5bc;
+  --text-color: #4c4f69;
+  --accent-color: #04a5e5;
+  --highlight-color: #40a02b;
+  --selection-bg: var(--highlight-color);
+  --selection-text: #04a5e5;
+  --error-color: #d20f39;
+  --link-color: #e64553;
+  --prefix-color: #40a02b;
+  --index-color: #fe640b;
+  --index-color2: #df8e1d;
+}
+
+[data-theme="hacker"] {
+  --bg-color: #000;
+  --text-color: #33ff33;
+  --accent-color: #00ff00;
+  --highlight-color: #0f0;
+  --selection-bg: #33ff33;
+  --selection-text: #b2b2b2;
+  --error-color: #ff0033;
+  --link-color: #33ff33;
+  --prefix-color: #0f0;
+  --index-color: #e5ff00;
+  --index-color2: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 15px 20px;
+  min-height: 99%;
+  width: 100%;
+  max-width: 100%;
+  color: var(--text-color);
+  background: var(--bg-color);
+  font-family: cursor, monospace;
+  overflow-x: hidden;
+}
+
+::selection {
+  color: var(--selection-text);
+  background-color: var(--selection-bg);
+}
+
+::-moz-selection {
+  color: var(--selection-text);
+  background-color: var(--selection-bg);
+}
+
+textarea {
+  left: -1000px;
+  position: absolute;
+}
+b {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.cursor {
+  color: var(--accent-color);
+  background-color: var(--accent-color);
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.command {
+  color: var(--accent-color);
+  text-shadow: 0 0 5px var(--accent-color);
+}
+
+#liner {
+  line-height: 1.3em;
+  margin-top: -2px;
+  animation: show 0.5s ease forwards;
+  animation-delay: 1.2s;
+  opacity: 0;
+}
+#liner::before {
+  color: var(--prefix-color);
+  content: "user@drunkleen.com:~$";
+}
+#liner.password::before {
+  content: "Password:";
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Cursor End */
+p {
+  display: block;
+  line-height: 1.3em;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 0.05em;
+  animation: typing 0.5s steps(30, end);
+}
+.no-animation {
+  animation: typing 0 steps(30, end);
+}
+.margin {
+  margin-left: 20px;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+.index {
+  color: var(--index-color);
+}
+.color2 {
+  color: var(--index-color2);
+}
+.command {
+  color: var(--selection-text);
+  text-shadow: 0 0 5px var(--selection-text); 
+}
+.error {
+  color: var(--error-color);
+}
+.white {
+  color: #fff;
+}
+.inherit,
+a {
+  color: var(--link-color);
+}
+a {
+  text-decoration: inherit;
+}
+a:hover {
+  background: var(--selection-text);
+  color: #211830;
+}
+a:focus {
+  outline: 0;
+}
+
+/* CSS */
+.theme-button {
+  position: fixed; top: 10px; right: 10px; z-index: 1000;
+  align-items: center;
+  appearance: none;
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,var(--bg-color) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: var(--text-color);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 2rem;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 14px;
+}
+
+.theme-button:focus {
+  box-shadow: var(--bg-color) 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, var(--bg-color) 0 -3px 0 inset;
+}
+
+.theme-button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, var(--bg-color) 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.theme-button:active {
+  box-shadow: var(--bg-color) 0 3px 7px inset;
+  transform: translateY(2px);
+}
