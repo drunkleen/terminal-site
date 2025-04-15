@@ -24,6 +24,7 @@ An interactive web terminal-style portfolio built with vanilla JS, HTML, and CSS
 └── js
     ├── caret.js           # Cursor movement logic
     ├── commands.js        # All command definitions
+    ├── fs.js               # FileSystem logic 
     └── main.js            # Core terminal logic
 ```
 
