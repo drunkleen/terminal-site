@@ -66,14 +66,18 @@ textarea {
   left: -1000px;
   position: absolute;
 }
+
 b {
   font-weight: bold;
   text-decoration: underline;
 }
 
 .cursor {
-  color: var(--accent-color);
+  position: absolute;
+  width: 10px;
+  height: 1.2em;
   background-color: var(--accent-color);
+  animation: blinker 1s step-start infinite;
 }
 
 @keyframes blinker {
@@ -88,19 +92,20 @@ b {
 }
 
 #liner {
-  line-height: 1.3em;
-  margin-top: -2px;
-  animation: show 0.5s ease forwards;
-  animation-delay: 1.2s;
-  opacity: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
-#liner::before {
+
+.prefix {
   color: var(--prefix-color);
-  content: "user@drunkleen.com:~$";
 }
-#liner.password::before {
-  content: "Password:";
+
+#typer {
+  font-family: inherit;
 }
+
+
 @keyframes show {
   from {
     opacity: 0;
@@ -109,7 +114,7 @@ b {
     opacity: 1;
   }
 }
-/* Cursor End */
+
 p {
   display: block;
   line-height: 1.3em;

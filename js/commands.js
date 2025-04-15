@@ -1,10 +1,10 @@
-var youtube = "https://www.youtube.com/@drunkleen/";
-var twitter = "https://www.x.com/drunkleen/";
-var linkedin = "https://www.linkedin.com/in/drunkleen/";
-var instagram = "https://www.instagram.com/drunkleen/";
-var github = "https://github.com/drunkleen/";
-var email = 'mailto:info@drunkleen.com';
-var rust = 'https://rustbook.drunkleen.com';
+const youtube = "https://www.youtube.com/@drunkleen/";
+const twitter = "https://www.x.com/drunkleen/";
+const linkedin = "https://www.linkedin.com/in/drunkleen/";
+const instagram = "https://www.instagram.com/drunkleen/";
+const github = "https://github.com/drunkleen/";
+const email = 'mailto:info@drunkleen.com';
+const rust = 'https://rustbook.drunkleen.com';
 
 
 const ls = [
@@ -78,6 +78,7 @@ const help = [
   '<span class="command">help</span>           You obviously already know what this does',
   '<span class="command">cat</span>            Print on the standard output',
   '<span class="command">clear</span>          Clear terminal',
+  '<span class="command">clearhistory</span>   Clear saved command history',
   '<span class="command">date</span>           Show current date and time',
   '<span class="command">email</span>          Show E-mail',
   '<span class="command">history</span>        View command history',

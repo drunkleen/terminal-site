@@ -1,14 +1,22 @@
-var before = document.getElementById("before");
-var liner = document.getElementById("liner");
-var command = document.getElementById("typer"); 
-var textarea = document.getElementById("texter"); 
-var terminal = document.getElementById("terminal");
+let before = document.getElementById("before");
+let liner = document.getElementById("liner");
+let command = document.getElementById("typer"); 
+let textarea = document.getElementById("texter"); 
+let terminal = document.getElementById("terminal");
 
-var git = 0;
-var pw = false;
+let git = 0;
+let pw = false;
 let pwd = false;
-var commands = [];
+let commands = [];
 
+try {
+  const saved = localStorage.getItem("cmdHistory");
+  if (saved) {
+    commands = JSON.parse(saved);
+  }
+} catch (e) {
+  console.warn("Failed to load history:", e);
+}
 
 function setTheme(themeName) {
   document.documentElement.setAttribute('data-theme', themeName);
@@ -26,9 +34,14 @@ function toggleTheme() {
   setTheme(next);
 }
 
-initTheme();
+function init() {
+  initTheme();
+  cursor = $("cursor");
+  cursor.style.left = "0px";
 
-
+  const texter = $("texter");
+  typeIt(texter);
+}
 
 setTimeout(function() {
   loopLines(banner, "", 80);
@@ -47,18 +60,33 @@ textarea.value = "";
 command.innerHTML = textarea.value;
 
 function enterKey(e) {
-  const key = e.key;
-  if (key === "µ") location.reload(); // keyCode 181 (rare usage)
+  const {key} = e;
+
+  if (e.ctrlKey && key === "c") {
+    addLine(`^C`, "error", 0);
+    textarea.value = "";
+    command.innerHTML = "";
+    return;
+  }
+  if (key === "µ") {
+    location.reload();
+  } // keyCode 181 (rare usage)
+  
   if (key === "Enter") {
     const input = command.innerHTML.trim();
     if (input) {
+      localStorage.setItem("cmdHistory", JSON.stringify(commands));
       commands.push(input);
       git = commands.length;
       addLine(`user@drunkleen.com:~$ ${input}`, "no-animation", 0);
       commander(input);
       command.innerHTML = textarea.value = "";
+    } else {
+      addLine(`user@drunkleen.com:~$`, "no-animation", 50); // empty prompt
     }
   }
+
+  
   if (key === "ArrowUp" && git > 0) {
     textarea.value = commands[--git];
     command.innerHTML = textarea.value;
@@ -141,9 +169,13 @@ const commandMap = {
   projects: () => loopLines(projects, "color2 margin", 80),
 
   history: () => {
-    addLine("<br>", "", 0);
     loopLines(commands, "color2", 80);
     addLine("<br>", "command", 80 * commands.length + 50);
+  },
+  clearhistory: () => {
+    localStorage.removeItem("cmdHistory");
+    commands = [];
+    addLine("Command history cleared!", "color2", 80);
   },
 
   email: () => {

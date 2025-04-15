@@ -2,7 +2,7 @@ function $(elid) {
     return document.getElementById(elid);
   }
   
-var cursor;
+let cursor;
 window.onload = init;
 
 function init() {
@@ -15,23 +15,36 @@ function nl2br(txt) {
 }
 
 function typeIt(from, e) {
-  e = e || window.event;
-  var w = $("typer");
-  var tw = from.value;
-  if (!pw){
-    w.innerHTML = nl2br(tw);
-  }
+  const fullText = from.value;
+  const caretIndex = from.selectionStart;
+  const textUpToCaret = fullText.slice(0, caretIndex);
+  const typer = $("typer");
+  const cursor = $("cursor");
+  const prefix = document.querySelector(".prefix");
+
+  if (!pw) {
+    typer.innerHTML = nl2br(fullText);
+  } 
+
+  const prefixWidth = prefix.getBoundingClientRect().width;
+
+  const span = document.createElement("span");
+  span.style.visibility = "hidden";
+  span.style.position = "absolute";
+  span.style.whiteSpace = "pre";
+  span.style.font = window.getComputedStyle(typer).font;
+  span.textContent = textUpToCaret || " ";
+  document.body.appendChild(span);
+
+  const typedWidth = span.getBoundingClientRect().width;
+  document.body.removeChild(span);
+
+  const cursorOffset = -10; // offset 1 char left at start
+  const total = prefixWidth + typedWidth + (fullText.length === 0 ? cursorOffset : 0);
+
+  cursor.style.left = `${total}px`;
 }
 
-function moveIt(count, e) {
-  e = e || window.event;
-  var keycode = e.keyCode || e.which;
-  if (keycode == 37 && parseInt(cursor.style.left) >= (0 - ((count - 1) * 10))) {
-    cursor.style.left = parseInt(cursor.style.left) - 10 + "px";
-  } else if (keycode == 39 && (parseInt(cursor.style.left) + 10) <= 0) {
-    cursor.style.left = parseInt(cursor.style.left) + 10 + "px";
-  }
-}
 
 function alert(txt) {
   console.log(txt);
