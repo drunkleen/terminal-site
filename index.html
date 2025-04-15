@@ -27,7 +27,6 @@
     <div id="command" onclick="$('texter').focus();">
       
       <textarea
-        type="text"
         id="texter"
         onkeyup="typeIt(this, event)"
         onkeydown="typeIt(this, event); 
@@ -36,12 +35,14 @@
         autofocus
       ></textarea>
       <div id="liner">
-        <span class="prefix">user@drunkleen.com:~$&nbsp;</span>
-        <span id="typer"></span><b class="cursor" id="cursor">█</b>
+        <span class="prefix" id="prefix"></span>
+        <span id="typer"></span>
+        <b class="cursor" id="cursor">█</b>
       </div>
     </div>
     <script src="js/caret.js"></script>
     <script src="js/commands.js"></script>
+    <script src="js/fs.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

@@ -34,21 +34,9 @@ function toggleTheme() {
   setTheme(next);
 }
 
-function init() {
-  initTheme();
-  cursor = $("cursor");
-  cursor.style.left = "0px";
+initTheme();
 
-  const texter = $("texter");
-  typeIt(texter);
-  textarea.value = "";
-  command.innerHTML = textarea.value;
-}
 
-setTimeout(function() {
-  loopLines(banner, "", 80);
-  textarea.focus();
-}, 100);
 
 window.addEventListener("keyup", enterKey);
 
@@ -80,11 +68,11 @@ function enterKey(e) {
       localStorage.setItem("cmdHistory", JSON.stringify(commands));
       commands.push(input);
       git = commands.length;
-      addLine(`user@drunkleen.com:~$ ${input}`, "no-animation", 0);
+      addLine(`user@drunkleen.com:${currentDir} $ ${input}`, "no-animation", 0);
       commander(input);
       command.innerHTML = textarea.value = "";
     } else {
-      addLine(`user@drunkleen.com:~$`, "no-animation", 50); // empty prompt
+      addLine(`user@drunkleen.com:${currentDir} $ ${input}`, "no-animation", 0);
     }
   }
 
@@ -104,6 +92,8 @@ function enterKey(e) {
 const commandMap = {
   help: () => loopLines(help, "color2 margin", 80),
 
+  pwd: () => addLine(currentDir, "color2", 80),
+
   theme: () => {
     toggleTheme();
     addLine("Theme changed!", "color2", 80);
@@ -112,12 +102,11 @@ const commandMap = {
     addLine("Available themes: default, light, hacker", "color2", 80);
   },
 
-  ls: () => loopLines(ls, "color2 margin", 80),
-
   cat: () => loopLines(cat, "color2 margin", 80),
 
+  tree: () => loopLines(tree(currentDir), "color2 margin", 40),
+
   whois: () => loopLines(whois, "color2 margin", 80),
-  "cat about.txt": () => commandMap.whois(),
 
   whoami: () => loopLines(whoami, "color2 margin", 80),
 
@@ -137,39 +126,33 @@ const commandMap = {
   },
   yt: () => commandMap.youtube(),
   video: () => commandMap.youtube(),
-  "cat youtube.txt": () => commandMap.youtube(),
 
   twitter: () => {
     addLine("Opening Twitter...", "color2", 0);
     newTab(twitter);
   },
   x: () => commandMap.twitter(),
-  "cat twitter.txt": () => commandMap.twitter(),
 
   linkedin: () => {
     addLine("Opening LinkedIn...", "color2", 0);
     newTab(linkedin);
   },
-  "cat linkedin.txt": () => commandMap.linkedin(),
 
   instagram: () => {
     addLine("Opening Instagram...", "color2", 0);
     newTab(instagram);
   },
-  "cat instagram.txt": () => commandMap.instagram(),
 
   github: () => {
     addLine("Opening GitHub...", "color2", 0);
     newTab(github);
   },
-  "cat github.txt": () => commandMap.github(),
 
   social: () => loopLines(social, "color2 margin", 80),
 
   sudo: () => loopLines(sudo, "color2 margin", 80),
 
   projects: () => loopLines(projects, "color2 margin", 80),
-
   history: () => {
     loopLines(commands, "color2", 80);
     addLine("<br>", "command", 80 * commands.length + 50);
@@ -200,11 +183,30 @@ const commandMap = {
     addLine(`Date: ${getDateTime()}`, "color2", 80);
   },
 
+
   neofetch: () => loopLines(banner, "", 80),
 };
 
 
-function commander(cmd) {
+function commander(input) {
+
+
+  const [cmd, ...args] = input.trim().split(" ");
+  const arg = args.join(" ");
+  
+  if (cmd === "cd") {
+    return cd(arg);
+  }
+  if (cmd === "ls") {
+    return lsCmd();
+  }
+  if (cmd === "pwd") {
+    return addLine(currentDir, "color2", 80);
+  }
+  if (cmd === "cat") {
+    return catFile(arg);
+  }
+  
   const fn = commandMap[cmd.toLowerCase()];
   fn ? fn() : addLine(`Command not found. Type <span class="command">'help'</span>.`, "error", 100);
 }
@@ -244,3 +246,4 @@ function loopLines(name, style, time) {
     addLine(item, style, index * time);
   });
 }
+

@@ -92,6 +92,7 @@ b {
 }
 
 #liner {
+  white-space: pre;
   position: relative;
   display: flex;
   align-items: center;

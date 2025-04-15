@@ -8,6 +8,11 @@ window.onload = init;
 function init() {
   cursor = $("cursor");
   cursor.style.left = "0px";
+  setTimeout(() => {
+    loopLines(banner, "", 80);
+    textarea.focus();
+    typeIt(textarea);
+  }, 100);
 }
 
 function nl2br(txt) {
@@ -32,6 +37,9 @@ function typeIt(from, e) {
   span.style.visibility = "hidden";
   span.style.position = "absolute";
   span.style.whiteSpace = "pre";
+  
+  $("prefix").textContent = "user@drunkleen.com:" + currentDir + " $ ";
+
   span.style.font = window.getComputedStyle(typer).font;
   span.textContent = textUpToCaret || " ";
   document.body.appendChild(span);
