@@ -41,6 +41,8 @@ function init() {
 
   const texter = $("texter");
   typeIt(texter);
+  textarea.value = "";
+  command.innerHTML = textarea.value;
 }
 
 setTimeout(function() {
