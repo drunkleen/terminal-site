@@ -74,6 +74,7 @@ function enterKey(e) {
     } else {
       addLine(`user@drunkleen.com:${currentDir} $ ${input}`, "no-animation", 0);
     }
+    typeIt(textarea);
   }
 
   

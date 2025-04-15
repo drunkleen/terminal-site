@@ -16,15 +16,15 @@
 [data-theme="light"] {
   --bg-color: #cbc5bc;
   --text-color: #4c4f69;
-  --accent-color: #04a5e5;
-  --highlight-color: #296a1b;
+  --accent-color: #05749f;
+  --highlight-color: #143f0c;
   --selection-bg: var(--highlight-color);
-  --selection-text: #04a5e5;
-  --error-color: #d20f39;
-  --link-color: #e64553;
+  --selection-text: #05749f;
+  --error-color: #910b28;
+  --link-color: #a5313b;
   --prefix-color: #296a1b;
-  --index-color: #fe640b;
-  --index-color2: #df8e1d;
+  --index-color: #923906;
+  --index-color2: #5c421e;
   --terminal-font: cursor, monospace;
 }
 
