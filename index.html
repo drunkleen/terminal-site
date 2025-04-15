@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ9TR5T9S2"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1P8T4XD6RQ"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-QJ9TR5T9S2');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-1P8T4XD6RQ");
     </script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DRUNKLEEN | Terminal</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="css/style.css"
+    />
     <link rel="icon" type="image/x-icon" href="img/fav-icon.png" />
   </head>
   <body>
-
-    <button onclick="toggleTheme()" class="theme-button" role="button">Theme🎨</button>
+    <button onclick="toggleTheme()" class="theme-button" role="button">
+      Theme🎨
+    </button>
     <div id="terminal">
       <a id="before"></a>
     </div>
 
     <div id="command" onclick="$('texter').focus();">
-      
       <textarea
         id="texter"
         onkeyup="typeIt(this, event)"
